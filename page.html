@@ -5,18 +5,29 @@
   <!-- import CSS -->
   <link rel="stylesheet" href="https://unpkg.com/element-ui@2.13.0/lib/theme-chalk/index.css">
 </head>
+
 <body>
   <div id="app">
-    <el-input placeholder="Input Here" v-model="input3" class="input-with-select">
-      <el-select v-model="select" slot="prepend" placeholder="Problem">
-        <el-option label="Frog" value="1"></el-option>
-        <el-option label="Train" value="2"></el-option>
-        <el-option label="Queen" value="3"></el-option>
-      </el-select>
-      <el-button slot="append" icon="el-icon-search"></el-button>
-    </el-input>
+  	<el-card class="box-card-input">
+  	  <div slot="header" class="clearfix">
+	  	<el-select v-model="select" placeholder="Choose Problem" @change="changeSel">
+	      <el-option v-for="item in questions" :label="item.label" :value="item.value"></el-option>
+	    </el-select>
+	    <el-button type="success" icon="el-icon-s-promotion" @click="getRes" circle></el-button>
+	  </div>
+	  <div>
+	    <el-input class="input-with-select" autosize v-model="input" :placeholder="holder"></el-input>
+	  </div>
+    </el-card>
+    <transition name="el-fade-in-linear">
+	  <el-card v-if='showRes' class="box-card-output">
+	  	<h  v-model='result'></h>
+	    <div></div>
+	  </el-card>
+    </transition>
   </div>
 </body>
+
 <!-- import Vue before Element -->
 <script src="https://unpkg.com/vue/dist/vue.js"></script>
 <!-- import JavaScript -->
@@ -26,8 +37,58 @@
     el: '#app',
     data: function() {
       return {
-        input3: '',
-        select: ''
+      	input: '',
+      	select: '',
+      	showRes: false,
+        questions: [{value: '1', label: 'Q1. Frog'},
+                    {value: '2', label: 'Q2. Queen'},
+                    {value: '3', label: 'Q3. Train'},
+                    {value: '4', label: 'Q4. Bag'},
+                    {value: '5', label: 'Q5. Chess'}],
+        holder: '',
+        result: ''
+      }
+    },
+    methods: {
+      changeSel(value) {
+      	this.showRes = false;
+      	this.select = value;
+      	switch (this.select) {
+      	  case '1': this.holder = 'Please input an integer.'; break;
+      	  case '2': this.holder = 'Please input an array.'; break;
+      	  case '3': this.holder = 'Please input a bitstring.'; break;
+      	  case '4': this.holder = 'Please input some integers.'; break;
+      	  case '5': this.holder = 'Please input three characters.'; break;
+      	  default: break;
+      	}
+      },
+      alg1() {
+        this.$message.error('Invalid input!');
+
+        this.result = '1';
+      },
+      alg2() {
+
+      },
+      alg3() {
+
+      },
+      alg4() {
+
+      },
+      alg5() {
+
+      },
+      getRes() {
+        this.showRes = true;
+        switch (this.select) {
+      	  case '1': this.alg1(); break;
+      	  case '2': this.alg2(); break;
+      	  case '3': this.alg3(); break;
+      	  case '4': this.alg4(); break;
+      	  case '5': this.alg5(); break;
+      	  default: break;
+      	}
       }
     }
   })
@@ -35,12 +96,27 @@
 
 
 <style>
-.el-select .el-input {
-  width: 130px;
+
+
+#app {
+  position: fixed;
+  top: 30%;
+  left: 50%;
+  width: 30%;
+  -webkit-transform: translateX(-50%) translateY(-50%);
 }
-.input-with-select {
-  width: 40%;
+.el-card {
+  width: 100%;
 }
+.el-select {
+  width: 85%;
+  margin-right: 5%;
+}
+.box-card-output {
+  margin-top: 5px;
+  background:rgb(225, 243, 216);
+}
+
 </style>
 </html>
 
