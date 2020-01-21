@@ -32,6 +32,7 @@
 <script src="https://unpkg.com/vue/dist/vue.js"></script>
 <!-- import JavaScript -->
 <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+<script src="/eel.js"></script>
 <script>
   new Vue({
     el: '#app',
@@ -65,7 +66,7 @@
       alg1() {
         this.$message.error('Invalid input!');
 
-        this.result = '1';
+        this.result = eel.alg1();
       },
       alg2() {
 
