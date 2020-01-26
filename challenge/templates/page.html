@@ -21,7 +21,7 @@
     </el-card>
     <transition name="el-fade-in-linear">
 	  <el-card v-if='showRes' class="box-card-output">
-	  	<h  v-model='result'></h>
+	  	<h v-model='result'>{{ res_str }}</h>
 	    <div></div>
 	  </el-card>
     </transition>
@@ -32,7 +32,6 @@
 <script src="https://unpkg.com/vue/dist/vue.js"></script>
 <!-- import JavaScript -->
 <script src="https://unpkg.com/element-ui/lib/index.js"></script>
-<script src="/eel.js"></script>
 <script>
   new Vue({
     el: '#app',
@@ -66,7 +65,6 @@
       alg1() {
         this.$message.error('Invalid input!');
 
-        this.result = eel.alg1();
       },
       alg2() {
 
